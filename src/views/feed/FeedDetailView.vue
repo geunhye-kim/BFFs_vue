@@ -281,6 +281,20 @@
                     <button class="coco-submit-button" @keyup.enter="createCocomment(comment)" @click="createCocomment(comment)">입 력</button>
                     <button class="coco-quit-button">취 소</button>
                   </div>
+                  <!-- 대댓글 입력 폼 -->
+                  <div class="coco-input-wrapper" v-if="comment.cocommentshow">
+                    <div class="coco-text-info">
+                      <p>대댓글 달기</p>
+                    </div>
+                    <textarea
+                      autocomplete="off"
+                      class="input-coco-text"
+                      placeholder="여기에 댓글을 입력하세요"
+                      v-model="inputCocomment"
+                    ></textarea>
+                    <button class="coco-submit-button" @keyup.enter="createCocomment(comment)" @click="createCocomment(comment)">입 력</button>
+                    <button class="coco-quit-button">취 소</button>
+                  </div>
 
                   <!-- 대댓글 내용 -->
                   <div class="cocommnet-box" v-for ="cocomment,index in comment.cocomment" :key="index">
