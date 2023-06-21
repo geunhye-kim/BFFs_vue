@@ -46,12 +46,6 @@ export default {
 @import '~quill/dist/quill.bubble.css';
 
 @font-face {
-    font-family: 'ChosunSg';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunSg.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
