@@ -7,7 +7,7 @@
             </div>
         </section>
         <section class="main-section">
-            <button class="back-button">
+            <button class="back-button" @click="goHome">
                 <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
                 <span>뒤로</span>
             </button>
@@ -17,111 +17,52 @@
                         <img src="@/assets/heart_ballon.png">
                         <h2>AI 친구와 대화해보세요!</h2>
                     </div>
-                <div class="ai-content">
-                    <!-- 대화창 -->
-                    <div class="card-container">
-                        <div class="card-body">
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <div class="loader">
-                                    <div class="loader-text">잠시만! 생각 중이야:)</div>
-                                    <div class="loader-bar"></div>
-                                    </div>  
-                                    <p class="left-text">안녕! 반가워:D</p>
+                    <div class="ai-content">
+                        <!-- 대화창 -->
+                        <div class="card-container">
+                            <div class="card-body">
+                                <!-- ai 대화 -->
+                                <div class="messages-container left">
+                                    <div class="message-box left">
+                                        <!-- loader -->
+                                        <div class="loader" v-if="firstloader">
+                                            <div class="loader-text">잠시만! 생각 중이야:)</div>
+                                            <div class="loader-bar"></div>
+                                        </div>
+                                        <p class="left-text">안녕! 반가워:D</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- user 대화 -->
-                            <div class="messages-container right">
-                                <div class="message-box right">
-                                <p class="right-text">나도 반가워!!</p>
-                                </div>
-                            </div>
 
+                                <div v-for="(text, index) in conversation" :key="index">
+                                    <!-- user 대화 -->
+                                    <div class="messages-container right" v-if="index % 2 === 0">
+                                        <div class="message-box right">
+                                        <p class="right-text">{{ text }}</p>
+                                        </div>
+                                    </div>
 
-                            <!-- 이 아래는 지우고 추가하시면 됩니다. 샘플용 데이터 -->
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <p class="left-text">무슨 얘기할까? 잘 지내?</p>
+                                    <!-- ai 대화 -->
+                                    <div class="messages-container left" v-else>
+                                        <div class="message-box left">
+                                            <!-- loader -->
+                                            <div class="loader" v-if="loadershow&&conversation.length-1 === index">
+                                                <div class="loader-text">잠시만! 생각 중이야:)</div>
+                                                <div class="loader-bar"></div>
+                                            </div>
+                                            <p class="left-text">{{ text }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- user 대화 -->
-                            <div class="messages-container right">
-                                <div class="message-box right">
-                                    <p class="right-text"> 응 그럼 너무 잘 지내지~ 너는 어때?</p>
-                                </div>
-                            </div>
-
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <p class="left-text">나는 요새 수영에 관심이 있어. 수영장에서 수영하고 재밌게 노는게 너무 좋아.</p>
-                                </div>
-                            </div>
-                            <!-- user 대화 -->
-                            <div class="messages-container right">
-                                <div class="message-box right">
-                                    <p class="right-text">오 그렇구나. 보다 긴 텍스트도 실험해볼까</p>
-                                </div>
-                            </div>
-
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <p class="left-text">죽는 날까지 하늘을 우러러 한 점 부끄럼이 없기를, 잎새에 이는 바람에도 나는 괴로워했다. 별을 노래하는 마음으로 모든 죽어가는 것을 사랑해야지. 그리고 나한테 주어진 길을 걸어가야겠다. 오늘 밤에도 별이 바람에 스치운다.</p>
-                                </div>
-                            </div>
-                            <!-- user 대화 -->
-                            <div class="messages-container right">
-                                <div class="message-box right">
-                                    <p class="right-text">윤동주 서시!</p>
-                                </div>
-                            </div>
-
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <p class="left-text">이번엔 네 차례야</p>
-                                </div>
-                            </div>
-                            <!-- user 대화 -->
-                            <div class="messages-container right">
-                                <div class="message-box right">
-                                    <p class="right-text">산모퉁이를 돌아 논가 외딴 우물을 홀로 찾아가선 가만히 들여다봅니다. 우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있습니다. 그리고 한 사나이가 있습니다. ...  우물 속에는 달이 밝고 구름이 흐르고 하늘이 펼치고 파아란 바람이 불고 가을이 있고 추억처럼 사나이가 있습니다.</p>
-                                </div>
-                            </div>
-
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <p class="left-text">윤동주 자화상</p>
-                                </div>
-                            </div>
-                            <!-- user 대화 -->
-                            <div class="messages-container right">
-                                <div class="message-box right">
-                                    <p class="right-text">텍스트가 길어지면 양옆으로 꽉 차는데 그래도 간격이 있는게 좋겠지?</p>
-                                </div>
-                            </div>
-
-                            <!-- ai 대화 -->
-                            <div class="messages-container left">
-                                <div class="message-box left">
-                                    <p class="left-text">얼마나 간격을 넣을까?</p>
-                                </div>
-                            </div>
 
                             </div>
                         </div>
-                    
                     </div>
                     <div class="input-wrapper">
                         <div class="input-text-info">
                             <p> 개인 정보 등 민감 정보를 입력하지 않도록 주의하세요!</p>
                         </div>
-                        <textarea autocomplete="off" class="input-text" placeholder="말을 걸어보세요:)"></textarea>
-                        <button class="submit-button">입 력</button>
+                        <textarea autocomplete="off" class="input-text" placeholder="말을 걸어보세요:)" v-model="text" @keyup.enter="createConversation()"></textarea>
+                        <button class="submit-button" @click="createConversation()">입 력</button>
                     </div>
                 </div>
             </div>
@@ -130,8 +71,44 @@
 </template>
 
 <script>
-export default {
+import { fetchMeetAICreate } from "@/api/index.js";
 
+export default {
+    data() {
+        return {
+            text: '',
+            conversation: [],
+            firstloader: false,
+            loadershow: false,
+        }
+    },
+    methods: {
+        goHome() {
+            this.$router.push('/')
+        },
+        async createConversation() {
+        try {
+            if (this.conversation.length === 0) {
+                this.firstloader = true;
+            } else {
+                this.loadershow = true;
+            }
+            const response = await fetchMeetAICreate(this.text);
+            if (response.status === 200) {
+                this.firstloader = this.loadershow = false;
+                this.conversation.push(this.text);
+                this.conversation.push(response.data.ai);
+                this.text = '';
+                }
+            } catch (error) {
+                console.log(error)
+                if (error.response.status === 500) {
+                    alert('잠시 후 다시 시도해 주세요!')
+                }
+
+            }
+        },
+    },
 }
 </script>
 
@@ -273,7 +250,7 @@ body {
   border-radius: 10px ;
   padding: 30px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   box-shadow: inset 0px 10px 20px 4px rgba(255, 166, 0, 0.1);
 
   overflow: auto;
@@ -352,7 +329,7 @@ body {
 }
 
 .loader-bar {
-  margin-left: 45px;
+  margin: 0 auto;
   width: 32%;
   height: 5px;
   border-radius: 5px;
