@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const config = {
-    baseUrl: 'http://127.0.0.1:8000'
+    baseUrl: 'https://api.makebestie.com'
 }
 const access_token = () => {
     return localStorage.getItem('access_token')
@@ -443,7 +443,6 @@ function fetchCommentDelete(comment_id) {
 
 // 대댓글 생성
 function fetchCocommentCreate(comment_id,text) {
-    console.log(text)
     return axios.post(`${config.baseUrl}/feed/${comment_id}/cocomment/`,{
         text,
     },{
